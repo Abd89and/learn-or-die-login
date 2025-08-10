@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول - Learn or Die</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAX_eco429KjJnbQYC1MsOyD7sShK20THE",
+      authDomain: "learn-or-die.firebaseapp.com",
+      projectId: "learn-or-die",
+      storageBucket: "learn-or-die.firebasestorage.app",
+      messagingSenderId: "716611084900",
+      appId: "1:716611084900:web:89cc30efb991b89c2ff571",
+      measurementId: "G-NX6L49ZE2J"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    window.onload = () => {
+      const loginBtn = document.getElementById("loginBtn");
+      loginBtn.addEventListener("click", () => {
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            const user = result.user;
+            alert("أهلاً " + user.displayName);
+          })
+          .catch((error) => {
+            alert("حصل خطأ: " + error.message);
+          });
+      });
+    };
+  </script>
+</head>
+<body style="text-align:center; padding-top:100px; font-family:Arial;">
+  <h1>Learn or Die</h1>
+  <button id="loginBtn" style="font-size:20px; padding:10px 20px;">تسجيل الدخول بجوجل</button>
+</body>
+</html>
